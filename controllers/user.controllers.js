@@ -86,7 +86,7 @@ const userLogin = async (req, res) => {
     res.cookie("accesstoken", accessToken, {
       httpOnly: true,
       secure: true, 
-      sameSite: "Strict",
+      sameSite: "None",
       maxAge: 1000 * 60 * 60,
     });
 
@@ -131,7 +131,7 @@ const googleLogin = async (req, res) => {
         res.cookie("accesstoken", accessToken, {
          httpOnly: true,
         secure: true, 
-        sameSite: "Strict", 
+        sameSite: "None", 
         maxAge: 1000 * 60 * 60
         });
     
@@ -155,7 +155,7 @@ const userLogout = async (req, res) => {
     res.clearCookie("accesstoken", {
       httpOnly: true,
       secure: false,
-      sameSite: "Strict",
+      sameSite: "None",
     });
     
     return res.status(200).send({
