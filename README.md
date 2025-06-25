@@ -25,7 +25,7 @@ This is the **backend** of the [AthleticHub](#) web application — a sports eve
 
 ```bash
 # Clone the repo
-git clone
+git clone https://github.com/asrafulsgit/athleticHub-server.git
 cd server
 npm install
 npm start
