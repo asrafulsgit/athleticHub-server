@@ -2,7 +2,7 @@
 
 This is the **backend** of the [AthleticHub](#) web application — a sports event management platform. It provides RESTful APIs for user authentication, event management, participant event and reviews.
 
----
+--- 
 
 ## 🧪 Tech Stack
 
