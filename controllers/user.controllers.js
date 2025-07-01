@@ -81,13 +81,13 @@ const userLogin = async (req, res) => {
         id: isExist._id, email : isExist.email
       },
       process.env.JWT_ACCESS_TOEKN,
-      { expiresIn: "1h" }
+      { expiresIn: "24h" }
     );
     res.cookie("accesstoken", accessToken, {
       httpOnly: true,
-      secure: true, 
+      secure: false, 
       sameSite: "None",
-      maxAge: 1000 * 60 * 60,
+      maxAge: 1000 * 60 * 60 * 24,
     });
 
     return res.status(200).send({
@@ -125,14 +125,14 @@ const googleLogin = async (req, res) => {
             id: user._id,  email : user.email
           },
           process.env.JWT_ACCESS_TOEKN,
-          { expiresIn: "1h" }
+          { expiresIn: "24h" }
         );
     
         res.cookie("accesstoken", accessToken, {
-         httpOnly: true,
-        secure: true, 
+        httpOnly: true,
+        secure: false, 
         sameSite: "None", 
-        maxAge: 1000 * 60 * 60
+        maxAge: 1000 * 60 * 60 * 24
         });
     
         return res.status(200).send({
