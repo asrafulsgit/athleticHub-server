@@ -83,10 +83,10 @@ const userLogin = async (req, res) => {
       process.env.JWT_ACCESS_TOEKN,
       { expiresIn: "24h" }
     );
-    res.cookie("accesstoken", accessToken, {
+    res.cookie("ahAccesstoken", accessToken, {
       httpOnly: true,
       secure: false, 
-      sameSite: "None",
+      sameSite: "Lax",
       maxAge: 1000 * 60 * 60 * 24,
     });
 
@@ -128,10 +128,10 @@ const googleLogin = async (req, res) => {
           { expiresIn: "24h" }
         );
     
-        res.cookie("accesstoken", accessToken, {
+        res.cookie("ahAccesstoken", accessToken, {
         httpOnly: true,
         secure: false, 
-        sameSite: "None", 
+        sameSite: "Lax", 
         maxAge: 1000 * 60 * 60 * 24
         });
     
@@ -152,12 +152,12 @@ const googleLogin = async (req, res) => {
 // logout user
 const userLogout = async (req, res) => {
   try {
-    res.clearCookie("accesstoken", {
+    res.clearCookie("ahAccesstoken", {
       httpOnly: true,
       secure: false,
-      sameSite: "None",
+      sameSite: "Lax",
     });
-    
+ 
     return res.status(200).send({
       message: "user logout successful",
       success: true,

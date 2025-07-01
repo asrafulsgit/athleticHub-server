@@ -107,7 +107,10 @@ const myBookingsIds = async (req, res) => {
       });
     }
     const bookings = await MyBooking.find({ userEmail : email }).populate('event',"_id");
-    const bookingsIds = bookings.map(book => book.event._id )
+    // console.log(bookings)
+   const bookingsIds = bookings
+    .map((book) => book.event?._id)
+    .filter((id) => id !== undefined);
 
     return res.status(200).send({
       message: "Book events ids fetched",

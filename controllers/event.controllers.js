@@ -34,6 +34,7 @@ const createEvent = async (req, res) => {
     participants,
     requirements,
     organizer,
+    isOpen
   } = req.body; 
   try {
     if (
@@ -65,6 +66,7 @@ const createEvent = async (req, res) => {
       participants: Number(participants),
       requirements,
       organizer,
+      isOpen
     });
 
     await newEvent.save();
@@ -120,6 +122,7 @@ const updateEvent = async (req, res) => {
     participants,
     requirements,
     organizer,
+    isOpen
   } = req.body;
   if (
     !type ||
@@ -168,7 +171,8 @@ const updateEvent = async (req, res) => {
         description,
         image,
         participants: Number(participants),
-        requirements
+        requirements,
+        isOpen
       },
       { new: true }
     );
@@ -215,7 +219,17 @@ const browseEvent = async (req, res) => {
 // featured events for lading page
 const featuredEvents = async (req, res) => {
   try {
-    const events = await Event.find().sort({ createdAt: -1 }).limit(6);
+    const now = new Date();
+    const today = now.toISOString().split("T")[0];
+    const currentTime = now.toTimeString().split(" ")[0].slice(0, 5); 
+    const events = await Event.find({
+      isOpen: true,
+      $or: [
+        { date: { $gt: today } },
+        { date: today, time: { $gt: currentTime } }
+      ]
+    }).sort({ date: 1, time: 1 }).limit(6);
+    
     return res.status(200).send({
       message: "Events fetched",
       events,
@@ -355,9 +369,46 @@ const searchEvents = async(req,res)=>{
        });
      } catch (error) {
        console.error(error);
-       return res.status(500).send({ success: false, message: "Something broke!" });
+       return res.status(500).send({ 
+        success: false, 
+        message: "Something broke!" 
+      });
      }
    }
+
+
+const upcomingEvents = async (req, res) => {
+  try {
+    const now = new Date();
+
+    const today = now.toISOString().split("T")[0];
+    const currentTime = now.toTimeString().split(" ")[0].slice(0, 5); 
+
+    const events = await Event.find({
+      isOpen: false,
+      $or: [
+        { date: { $gt: today } },
+        { date: today, time: { $gt: currentTime } }
+      ]
+    }).sort({ date: 1, time: 1 }).limit(6);  
+
+    return res.status(200).json({
+      success: true,
+      message: "Upcoming closed events fetched successfully.",
+      events,
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch upcoming closed events.",
+      error: error.message,
+    });
+  }
+};
+
+
+
 
 module.exports = {
   createEvent,
@@ -368,5 +419,6 @@ module.exports = {
   featuredEvents,
   myEvents,
   filterEventsWithType,
-  searchEvents
+  searchEvents,
+  upcomingEvents
 };

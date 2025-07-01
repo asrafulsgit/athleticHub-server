@@ -46,6 +46,10 @@ const eventSchema = new mongoose.Schema(
     requirements: {
       type: String,
     },
+    isOpen : {
+      type : Boolean,
+      default : false
+    },
     organizer: {
       image: {
         type: String,
