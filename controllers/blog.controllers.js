@@ -31,7 +31,6 @@ const Blog = require('../models/blog.model')
         blog
     });
   } catch (error) {
-    console.error("Create blog error:", error);
     return res.status(500).json({ 
         message: "Server error while creating blog.", 
         success : false
@@ -51,7 +50,6 @@ const Blog = require('../models/blog.model')
         blogs
     });
   } catch (error) {
-    console.error("Get all blogs error:", error);
     return res.status(500).json({ 
         message: "Server error while fetching blogs.",
         success : false
@@ -78,7 +76,6 @@ const Blog = require('../models/blog.model')
         blog
     });
   } catch (error) {
-    console.error("Get blog error:", error);
     res.status(500).json({ message: "Server error while fetching blog." });
   }
 };
@@ -115,7 +112,6 @@ const Blog = require('../models/blog.model')
 
     res.json(blog);
   } catch (error) {
-    console.error("Update blog error:", error);
     res.status(500).json({ message: "Server error while updating blog." });
   }
 };
@@ -132,7 +128,6 @@ const Blog = require('../models/blog.model')
 
     res.json({ message: "Blog deleted successfully." });
   } catch (error) {
-    console.error("Delete blog error:", error);
     res.status(500).json({ message: "Server error while deleting blog." });
   }
 };

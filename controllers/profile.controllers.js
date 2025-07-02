@@ -13,7 +13,7 @@ const profile = async (req, res) => {
     
     // calculate participated 
     const myBookings = await MyBooking.find({userEmail : email}).populate('event','date time');
-    // console.log(myBookings)
+
     let eventsPaticipated = 0;
     myBookings.forEach((booking)=>{
       const {date,time}= booking?.event;

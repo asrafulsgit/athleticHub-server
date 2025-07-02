@@ -343,7 +343,6 @@ const filterEventsWithType = async(req,res)=>{
       message: 'Events filter successfull' 
     });
   } catch (error) {
-    console.error(error);
     return res.status(500).send({ success: false, message: "Something broke!" });
   }
 }
@@ -368,7 +367,6 @@ const searchEvents = async(req,res)=>{
          message: 'Search events successfull' 
        });
      } catch (error) {
-       console.error(error);
        return res.status(500).send({ 
         success: false, 
         message: "Something broke!" 

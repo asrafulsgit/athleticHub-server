@@ -8,6 +8,7 @@ const myBookingRouter = require('./routes/myBooking.route');
 const profileRouter = require('./routes/profile.router');
 const reviewRouter = require('./routes/review.route');
 const blogRouter = require('./routes/blog.router');
+const testimonialRouter = require('./routes/testimonial.router');
 
 const app = express();
 app.use(express.json());
@@ -27,6 +28,7 @@ app.use('/api/v1',  bookEventRouter);
 app.use('/api/v1',  profileRouter);
 app.use('/api/v1',  reviewRouter);
 app.use('/api/v1',  blogRouter);
+app.use('/api/v1',  testimonialRouter);
 
 
 
